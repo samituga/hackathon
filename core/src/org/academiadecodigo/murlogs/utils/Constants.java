@@ -33,6 +33,7 @@ public class Constants {
     public static final float PLAYER_DODGE_X = 2f;
     public static final float PLAYER_DODGE_Y = 1.5f;
     public static final float PLAYER_GRAVITY_SCALE = 3f;
+
     public static final Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 20f);
 
     public static final String BACKGROUND_IMAGE_PATH = "background.png";

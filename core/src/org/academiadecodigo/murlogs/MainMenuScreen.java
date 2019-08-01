@@ -12,12 +12,12 @@ import org.academiadecodigo.murlogs.Screens.MainGame;
 public class MainMenuScreen implements Screen {
 
 
+
     Texture image;
 
     final App game;
 
     OrthographicCamera camera;
-
 
 
     public MainMenuScreen(final App game) {
@@ -31,8 +31,6 @@ public class MainMenuScreen implements Screen {
     }
 
 
-
-
     @Override
     public void show() {
 
@@ -44,24 +42,36 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
+
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
         game.batch.draw(image, 0, 0);
         game.font.draw(game.batch, "Welcome to Johny Doe!!! ", 100, 150);
         game.font.draw(game.batch, "Press a key to begin!", 100, 100);
+        game.batch.draw(new Texture("play.png"), 50, 388);
+        game.batch.draw(new Texture("controls.png"), 50, 238);
+        game.batch.draw(new Texture("exit.png"), 50, 88);
         game.batch.end();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new MainGame(game));
-            dispose();
-        }
 
-//        if (Gdx.input.isTouched()) {
-//            game.setScreen(new MainGame(game));
-//            dispose();
-//        }
+        if (Gdx.input.isTouched()) {
+
+            if ((Gdx.input.getX() > 50 && Gdx.input.getX() < 250) && (Gdx.input.getY() > 88 && Gdx.input.getY() < 188)) {
+                game.setScreen(new MainGame(game));
+                return;
+            }
+            if ((Gdx.input.getX() > 50 && Gdx.input.getX() < 250) && (Gdx.input.getY() > 238 && Gdx.input.getY() < 338)) {
+                game.setScreen(new GameScreen(game));
+                return;
+            }
+            if ((Gdx.input.getX() > 50 && Gdx.input.getX() < 250) && (Gdx.input.getY() > 388 && Gdx.input.getY() < 488)) {
+                game.setScreen(new GameScreen(game));
+            }
+        }
     }
+
+
 
 
     @Override
@@ -86,7 +96,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
+      game.dispose();
     }
 
 }
