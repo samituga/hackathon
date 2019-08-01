@@ -29,11 +29,11 @@ public class WorldUtils {
     public static Body createPlayer(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y));
+        bodyDef.position.set(new Vector2(Constants.PLAYER_X, Constants.PLAYER_Y));
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Constants.RUNNER_WIDTH / 2, Constants.RUNNER_HEIGHT / 2);
+        shape.setAsBox(Constants.PLAYER_WIDTH / 2, Constants.PLAYER_HEIGHT / 2);
         Body body = world.createBody(bodyDef);
-        body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE);
+        body.setGravityScale(Constants.PLAYER_GRAVITY_SCALE);
         body.createFixture(shape, Constants.PLAYER_DENSITY);
         body.resetMassData();
         body.setUserData(new PlayerUserData());

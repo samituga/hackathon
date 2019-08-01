@@ -6,6 +6,7 @@ import org.academiadecodigo.murlogs.box2d.UserData;
 
 public class Player extends Corpse {
 
+    private boolean dodging;
     private boolean jumping;
 
     public Player(Body body) {
@@ -27,4 +28,21 @@ public class Player extends Corpse {
     public void landed() {
         jumping = false;
     }
+
+    public void dodge() {
+        if (!jumping) {
+            body.setTransform(getUserData().getDodgePosition(), getUserData().getDodgeAngle());
+            dodging = true;
+        }
+    }
+
+    public void stopDodge() {
+        dodging = false;
+        body.setTransform(getUserData().getRunningPosition(), 0f);
+    }
+
+    public boolean isDodging() {
+        return dodging;
+    }
+
 }
