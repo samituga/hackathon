@@ -3,7 +3,6 @@ package org.academiadecodigo.murlogs.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import org.academiadecodigo.murlogs.App;
-import org.academiadecodigo.murlogs.JohnDoe;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
