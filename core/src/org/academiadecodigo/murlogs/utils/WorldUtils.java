@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import org.academiadecodigo.murlogs.box2d.GroundUserData;
 import org.academiadecodigo.murlogs.box2d.PlayerUserData;
+import org.academiadecodigo.murlogs.box2d.SideLimitUserData;
 
 public class WorldUtils {
 
@@ -22,6 +23,30 @@ public class WorldUtils {
         shape.setAsBox(Constants.GROUND_WIDTH, Constants.GROUND_HEIGHT / 2);
         body.createFixture(shape, Constants.GROUND_DENSITY);
         body.setUserData(new GroundUserData());
+        shape.dispose();
+        return body;
+    }
+
+    public static Body createLeftSideLimit(World world){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(new Vector2(Constants.LEFT_LIMIT_X, Constants.LEFT_LIMIT_Y));
+        Body body = world.createBody(bodyDef);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(Constants.LEFT_LIMIT_WIDTH,Constants.LEFT_LIMIT_HEIGHT);
+        body.createFixture(shape, Constants.GROUND_DENSITY);
+        body.setUserData(new SideLimitUserData());
+        shape.dispose();
+        return body;
+    }
+
+    public static Body createRightSideLimit(World world){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(new Vector2(Constants.RIGHT_LIMIT_X, Constants.RIGHT_LIMIT_Y));
+        Body body = world.createBody(bodyDef);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(Constants.RIGHT_LIMIT_WIDTH,Constants.RIGHT_LIMIT_HEIGHT);
+        body.createFixture(shape, Constants.GROUND_DENSITY);
+        body.setUserData(new SideLimitUserData());
         shape.dispose();
         return body;
     }
