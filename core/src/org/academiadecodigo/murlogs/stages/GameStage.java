@@ -7,16 +7,21 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import org.academiadecodigo.murlogs.characters.Ground;
 import org.academiadecodigo.murlogs.characters.Player;
 import org.academiadecodigo.murlogs.utils.BodyUtils;
+import org.academiadecodigo.murlogs.utils.Constants;
 import org.academiadecodigo.murlogs.utils.WorldUtils;
 
-public class GameStage extends Stage {
+public class GameStage extends Stage implements ContactListener {
 
     private static final int VIEWPORT_WIDTH = 20;
     private static final int VIEWPORT_HEIGHT = 13;
+
+    //private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
+    //private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
 
     private World world;
     private Ground ground;
@@ -40,7 +45,7 @@ public class GameStage extends Stage {
 
     private void setupWorld() {
         world = WorldUtils.createWorld();
-
+        world.setContactListener(this);
         setUpGround();
         setUpPlayer();
         //setupTouchControlAreas();
@@ -49,6 +54,8 @@ public class GameStage extends Stage {
     private void setUpPlayer() {
         player = new Player(WorldUtils.createPlayer(world));
         addActor(player);
+
+
     }
 
     private void setUpGround() {
@@ -63,10 +70,8 @@ public class GameStage extends Stage {
     }
 
 
-
     @Override
     public void act(float delta) {
-
 
         super.act(delta);
 
@@ -84,12 +89,36 @@ public class GameStage extends Stage {
         renderer.render(world, camera.combined);
     }
 
-    public void moveRight(){
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            player.jump();
-
-        }
+    public Player getPlayer() {
+        return player;
     }
 
+    @Override
+    public void beginContact(Contact contact) {
 
+        Body a = contact.getFixtureA().getBody();
+        Body b = contact.getFixtureB().getBody();
+
+        if ((BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsGround(b)) ||
+                (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsPlayer(b))) {
+
+            player.landed();
+        }
+
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+
+    }
 }
