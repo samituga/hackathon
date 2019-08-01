@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import org.academiadecodigo.murlogs.Screens.MainGame;
 
 
 public class MainMenuScreen implements Screen {
@@ -52,12 +53,12 @@ public class MainMenuScreen implements Screen {
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new MainGame());
             dispose();
         }
 
 //        if (Gdx.input.isTouched()) {
-//            game.setScreen(new GameScreen(game));
+//            game.setScreen(new MainGame(game));
 //            dispose();
 //        }
     }
