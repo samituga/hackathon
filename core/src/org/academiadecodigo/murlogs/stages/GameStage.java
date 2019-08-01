@@ -1,6 +1,7 @@
 package org.academiadecodigo.murlogs.stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -11,7 +12,7 @@ import org.academiadecodigo.murlogs.characters.Player;
 import org.academiadecodigo.murlogs.utils.BodyUtils;
 import org.academiadecodigo.murlogs.utils.WorldUtils;
 
-public class GameStage extends Stage implements ContactListener {
+public class GameStage extends Stage implements Input {
 
     private static final int VIEWPORT_WIDTH = 20;
     private static final int VIEWPORT_HEIGHT = 13;
@@ -87,7 +88,9 @@ public class GameStage extends Stage implements ContactListener {
     }
 
     private boolean rightSideTouched(float x, float y) {
-        return screenRightSide.contains(x, y);
+        System.out.println("FLOAT");
+        System.out.println(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY));
+        return Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
     private boolean leftSideTouched(float x, float y) {
