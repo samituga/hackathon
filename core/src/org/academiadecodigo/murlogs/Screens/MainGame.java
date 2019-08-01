@@ -5,15 +5,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import org.academiadecodigo.murlogs.App;
 import org.academiadecodigo.murlogs.stages.GameStage;
 
 public class MainGame implements Screen {
 
     private GameStage stage;
+    private App app;
 
 
-    public MainGame() {
+    public MainGame(App app) {
         stage = new GameStage();
+        this.app = app;
     }
 
     @Override
