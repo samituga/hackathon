@@ -6,10 +6,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import org.academiadecodigo.murlogs.Screens.GameScreen;
+import org.academiadecodigo.murlogs.Screens.MainGame;
 
 
 public class MainMenuScreen implements Screen {
+
 
 
     Texture image;
@@ -56,18 +57,22 @@ public class MainMenuScreen implements Screen {
 
         if (Gdx.input.isTouched()) {
 
-            //Checks if the click was in the bounds of the Play Button
             if ((Gdx.input.getX() > 50 && Gdx.input.getX() < 250) && (Gdx.input.getY() > 88 && Gdx.input.getY() < 188)) {
-                game.setScreen(new GameScreen());
+                game.setScreen(new MainGame(game));
+                return;
             }
             if ((Gdx.input.getX() > 50 && Gdx.input.getX() < 250) && (Gdx.input.getY() > 238 && Gdx.input.getY() < 338)) {
-                game.setScreen(new GameScreen());
+                game.setScreen(new GameScreen(game));
+                return;
             }
             if ((Gdx.input.getX() > 50 && Gdx.input.getX() < 250) && (Gdx.input.getY() > 388 && Gdx.input.getY() < 488)) {
-                game.setScreen(new GameScreen());
+                game.setScreen(new GameScreen(game));
             }
         }
     }
+
+
+
 
     @Override
     public void resize(int width, int height) {

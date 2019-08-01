@@ -1,21 +1,27 @@
 package org.academiadecodigo.murlogs.stages;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import org.academiadecodigo.murlogs.characters.Ground;
 import org.academiadecodigo.murlogs.characters.Player;
 import org.academiadecodigo.murlogs.utils.BodyUtils;
+import org.academiadecodigo.murlogs.utils.Constants;
 import org.academiadecodigo.murlogs.utils.WorldUtils;
 
 public class GameStage extends Stage implements ContactListener {
 
     private static final int VIEWPORT_WIDTH = 20;
     private static final int VIEWPORT_HEIGHT = 13;
+
+    //private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
+    //private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
 
     private World world;
     private Ground ground;
@@ -42,12 +48,14 @@ public class GameStage extends Stage implements ContactListener {
         world.setContactListener(this);
         setUpGround();
         setUpPlayer();
-        setupTouchControlAreas();
+        //setupTouchControlAreas();
     }
 
     private void setUpPlayer() {
         player = new Player(WorldUtils.createPlayer(world));
         addActor(player);
+
+
     }
 
     private void setUpGround() {
@@ -61,16 +69,10 @@ public class GameStage extends Stage implements ContactListener {
         camera.update();
     }
 
-    private void setupTouchControlAreas() {
-        touchPoint = new Vector3();
-        screenRightSide = new Rectangle(getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 2,
-                getCamera().viewportHeight);
-        screenLeftSide = new Rectangle(0, 0, getCamera().viewportWidth / 2, getCamera().viewportHeight);
-        Gdx.input.setInputProcessor(this);
-    }
 
     @Override
     public void act(float delta) {
+
         super.act(delta);
 
         accumulator += delta;
@@ -87,52 +89,22 @@ public class GameStage extends Stage implements ContactListener {
         renderer.render(world, camera.combined);
     }
 
-    private boolean rightSideTouched(float x, float y) {
-        System.out.println("FLOAT");
-        System.out.println(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY));
-        return Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
-    }
-
-    private boolean leftSideTouched(float x, float y) {
-        return screenLeftSide.contains(x, y);
-    }
-    private void translateScreenToWorldCoordinates(int x, int y) {
-        getCamera().unproject(touchPoint.set(x, y, 0));
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
     public void beginContact(Contact contact) {
+
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
         if ((BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsPlayer(b))) {
+
             player.landed();
         }
-    }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        translateScreenToWorldCoordinates(screenX, screenY);
-        System.out.println("here");
-        if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-            System.out.println("jumping");
-            player.jump();
-        } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-            System.out.println("dodging");
-            player.dodge();
-        }
-
-        return super.touchDown(screenX, screenY, pointer, button);
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (player.isDodging()) {
-            player.stopDodge();
-        }
-
-        return super.touchUp(screenX, screenY, pointer, button);
     }
 
     @Override

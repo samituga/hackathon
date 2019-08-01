@@ -12,6 +12,8 @@ public abstract class Corpse extends Actor {
     public Corpse(Body body) {
         this.body = body;
         this.userData = (UserData)body.getUserData();
+        body.setFixedRotation(true);
+
     }
 
     public abstract UserData getUserData();
