@@ -12,7 +12,7 @@ import org.academiadecodigo.murlogs.characters.Player;
 import org.academiadecodigo.murlogs.utils.BodyUtils;
 import org.academiadecodigo.murlogs.utils.WorldUtils;
 
-public class GameStage extends Stage implements Input {
+public class GameStage extends Stage implements ContactListener {
 
     private static final int VIEWPORT_WIDTH = 20;
     private static final int VIEWPORT_HEIGHT = 13;
