@@ -11,6 +11,6 @@ public class DesktopLauncher {
 		config.title = "John Doe";
 		config.width = 1024;
 		config.height = 576;
-		new LwjglApplication(new JohnDoe(), config);
+		new LwjglApplication(new App(), config);
 	}
 }
