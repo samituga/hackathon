@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import org.academiadecodigo.murlogs.stages.GameStage;
 
-public class GameScreen implements Screen {
+public class MainGame implements Screen {
 
     private GameStage stage;
 
 
-    public GameScreen() {
+    public MainGame() {
         stage = new GameStage();
     }
 
