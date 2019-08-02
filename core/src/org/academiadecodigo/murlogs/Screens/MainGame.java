@@ -19,7 +19,6 @@ public class MainGame implements Screen {
     private Player player;
     private boolean crouch;
     private final Texture background = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
-
     private OrthographicCamera camera;
     public MainGame(App app) {
         stage = new GameStage();
