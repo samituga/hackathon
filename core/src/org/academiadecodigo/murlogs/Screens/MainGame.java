@@ -76,23 +76,26 @@ public class MainGame implements Screen {
             player.stopDodge();
             crouch = false;
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.J)) {
+            if (enemy.isClose()) {
+                enemy.hitten();
+            }
+        }
     }
 
 
     private void checkEndGame() {
 
-        if (enemy.isDead()) { // TODO: 02/08/2019  
-            enemyDeath = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
+        if (enemy.isDead()) { // TODO: 02/08/2019
+            enemyDeath = new Texture(Gdx.files.internal(Constants.PLAYER_WIN_IMAGE_PATH));
             finish(enemyDeath);
 
         }
-
         if (enemy.isDead()) { // TODO: 02/08/2019 player
-            playerdeath = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
+            playerdeath = new Texture(Gdx.files.internal(Constants.PLAYER_LOSE_IMAGE_PATH));
             finish(playerdeath);
-
         }
-
     }
 
 
@@ -124,6 +127,6 @@ public class MainGame implements Screen {
     private void finish(Texture texture) {
 
 
-        app.setScreen(new EndScreen(app, mainMenuScreen));
+        app.setScreen(new EndScreen(app, mainMenuScreen, texture));
     }
 }

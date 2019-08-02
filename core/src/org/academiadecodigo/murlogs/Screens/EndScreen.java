@@ -13,15 +13,16 @@ public class EndScreen implements Screen {
     private Screen mainMenuScreen;
     private Texture image;
     private OrthographicCamera camera;
+    private int i = 0;
 
 
-    public EndScreen(final App game, Screen mainMenuScreen) {
+    public EndScreen(final App game, Screen mainMenuScreen, Texture texture) {
         this.game = game;
         this.mainMenuScreen = mainMenuScreen;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1024, 576);
-        image = new Texture(Gdx.files.internal("bgControls.png"));
+        image = texture;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class EndScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
+        i++;
         // tell the camera to update its matrices.
         camera.update();
 
@@ -43,13 +44,11 @@ public class EndScreen implements Screen {
         game.batch.draw(image, 0, 0);
         game.batch.end();
 
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (i >= 250) {
+            game.setScreen(mainMenuScreen);
         }
 
-        game.setScreen(mainMenuScreen);
+
     }
 
     @Override

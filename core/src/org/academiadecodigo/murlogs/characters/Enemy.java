@@ -8,7 +8,7 @@ import org.academiadecodigo.murlogs.utils.Constants;
 public class Enemy extends Corpse {
 
 
-    protected boolean isClose;
+    protected boolean close;
     protected UserData userData;
     private int iterators;
     private boolean initialMove = true;
@@ -22,9 +22,6 @@ public class Enemy extends Corpse {
 
     }
 
-    public boolean isClose() {
-        return isClose;
-    }
 
     @Override
     public EnemyUserData getUserData() {
@@ -44,7 +41,6 @@ public class Enemy extends Corpse {
             for (int i = 0; i < 50; i++) {
                 body.applyLinearImpulse(Constants.ENEMY_LEFT, Constants.ENEMY_LEFT, true);
                 if (body.getPosition().x <= 10f) {
-                    System.out.println("STOP!!!!!!!!");
                     break;
                 }
             }
@@ -62,14 +58,9 @@ public class Enemy extends Corpse {
             iterators = 0;
         }
 
-        if (isClose) {
-
-
-        }
 
         switch (directions) {
             case LEFT:
-                //this.setX(this.getX() + 3f);
                 body.applyLinearImpulse(Constants.ENEMY_LEFT, Constants.ENEMY_LEFT, true);
                 break;
             case RIGHT:
@@ -80,5 +71,19 @@ public class Enemy extends Corpse {
 
     public boolean isDead() {
         return isDead;
+    }
+
+    public void hitten(){
+        hp -= 100;
+        if (hp <= 0) {
+            isDead = true;
+        }
+    }
+
+    public void setClose(boolean b) {
+        close = b;
+    }
+    public boolean isClose() {
+        return close;
     }
 }

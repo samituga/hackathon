@@ -28,6 +28,7 @@ public class Player extends Corpse {
     private Animation jumpingAnimation;
     private Animation punchingAnimation;
     private boolean punch;
+    private boolean close;
 
     public Player(Body body) {
         super(body);
@@ -154,4 +155,11 @@ public class Player extends Corpse {
         return this;
     }
 
+    public void setClose(boolean b) {
+        close = b;
+    }
+
+    public boolean isClose() {
+        return close;
+    }
 }

@@ -122,7 +122,7 @@ public class GameStage extends Stage implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-
+        System.out.println("here");
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
@@ -136,8 +136,13 @@ public class GameStage extends Stage implements ContactListener {
         if ((BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsPlayer(b)) ||
                 BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsEnemy(b)) {
             System.out.println("enemy is close");
-            enemy.isClose();
+            player.setClose(true);
+            enemy.setClose(true);
+            return;
         }
+
+        player.setClose(false);
+        enemy.setClose(false);
     }
 
     @Override
