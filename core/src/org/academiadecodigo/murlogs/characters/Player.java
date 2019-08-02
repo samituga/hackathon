@@ -74,7 +74,6 @@ public class Player extends Corpse {
         TextureRegion[] blockingFrames = new TextureRegion[Constants.PLAYER_BLOCKING_IMAGE_SET.length];
         for (int i = 0; i < Constants.PLAYER_BLOCKING_IMAGE_SET.length; i++) {
             String path = Constants.PLAYER_BLOCKING_IMAGE_SET[i];
-            System.out.println(path);
             blockingFrames[i] = textureBlockingAtlas.findRegion(path);
         }
 
@@ -114,7 +113,6 @@ public class Player extends Corpse {
         System.out.println(punch);
 
         if (punch) {
-            System.out.println("heee");
             batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
             punch = false;
             return;

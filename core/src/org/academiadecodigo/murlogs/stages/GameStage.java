@@ -53,11 +53,12 @@ public class GameStage extends Stage implements ContactListener {
     private void setupWorld() {
         world = WorldUtils.createWorld();
         world.setContactListener(this);
-        setUpGround();
         setUpPlayer();
+        setUpEnemy();
+        setUpGround();
         setUpLeftSideLimit();
         setUpRightSideLimit();
-        setUpEnemy();
+
 
         //setupTouchControlAreas();
     }

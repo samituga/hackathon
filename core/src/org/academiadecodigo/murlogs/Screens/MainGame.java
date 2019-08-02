@@ -50,12 +50,13 @@ public class MainGame implements Screen {
         app.batch.setProjectionMatrix(camera.combined);
         app.batch.begin();
         app.batch.draw(img, 0, 0);
+        stage.getEnemy().enemyMove();
         app.batch.end();
 
         stage.draw();
         stage.act(delta);
 
-        stage.getEnemy().enemyMove();
+
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player.jump();
@@ -84,7 +85,6 @@ public class MainGame implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && enemy.isClose()) {
-            System.out.println("Player punching");
             enemy.hitten();
             player.punch();
         }
