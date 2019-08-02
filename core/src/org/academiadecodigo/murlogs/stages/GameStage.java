@@ -122,7 +122,6 @@ public class GameStage extends Stage implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("here");
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 

@@ -18,12 +18,10 @@ public class MainGame implements Screen {
     private App app;
     private Player player;
     private Enemy enemy;
-    private boolean crouch;
     private Texture img;
     private Texture enemyDeath;
     private Texture playerdeath;
     private Screen mainMenuScreen;
-    private boolean blocking;
 
 
     private OrthographicCamera camera;
@@ -53,14 +51,13 @@ public class MainGame implements Screen {
         app.batch.begin();
         app.batch.draw(img, 0, 0);
         app.batch.end();
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
         stage.act(delta);
 
         stage.getEnemy().enemyMove();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.J)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player.jump();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -71,24 +68,38 @@ public class MainGame implements Screen {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player.dodge();
-            crouch = true;
+            player.setDodging(true);
         }
-        if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && crouch) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.isDodging()) {
             player.stopDodge();
-            crouch = false;
+            player.setDodging(false);
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            blocking = true;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.setBlocking(true);
         }
-
 
         if (Gdx.input.isKeyPressed(Input.Keys.X)) {
             player.punch();
-            if (enemy.isClose()) {
-                enemy.hitten();
-            }
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && enemy.isClose()) {
+            System.out.println("Player punching");
+            enemy.hitten();
+            player.punch();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+            player.setBlocking(true);
+        }
+        if (!Gdx.input.isKeyPressed(Input.Keys.K)) {
+            player.setBlocking(false);
+        }
+
+        if (enemy.isAttack() && !player.isBlocking() && enemy.isClose()) {
+            player.hitten();
+        }
+
     }
 
 
@@ -99,7 +110,7 @@ public class MainGame implements Screen {
             finish(enemyDeath);
 
         }
-        if (enemy.isDead()) { // TODO: 02/08/2019 player
+        if (player.isDead()) { // TODO: 02/08/2019 player
             playerdeath = new Texture(Gdx.files.internal(Constants.PLAYER_LOSE_IMAGE_PATH));
             finish(playerdeath);
         }
@@ -137,15 +148,8 @@ public class MainGame implements Screen {
         app.setScreen(new EndScreen(app, mainMenuScreen, texture));
     }
 
-    public boolean isCrouch() {
-        return crouch;
-    }
-
     public void setPlayer(Player player) {
         this.player = player;
     }
 
-    public boolean isBlocking() {
-        return blocking;
-    }
 }

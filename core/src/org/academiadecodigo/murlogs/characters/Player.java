@@ -35,6 +35,8 @@ public class Player extends Corpse {
     private Animation blockingAnimation;
     private boolean punch;
     private boolean close;
+    private boolean isBlocking;
+    private int hp = 100;
     private MainGame mainGame;
 
     public Player(Body body) {
@@ -92,15 +94,14 @@ public class Player extends Corpse {
 
         stateTime += Gdx.graphics.getDeltaTime();
 
-        if(mainGame.isCrouch()){
-            int width = (int) (128/1.4);
-            int height = (int) (256/1.4);
-            batch.draw((TextureRegion)crouchingAnimation.getKeyFrame(stateTime, true),(getX() - 1f) * 50, getY() * 15, width,height);
+        if (dodging) {
+            int width = (int) (128 / 1.4);
+            int height = (int) (256 / 1.4);
+            batch.draw((TextureRegion) crouchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, width, height);
             return;
         }
 
-        if(mainGame.isBlocking()){
-            System.out.println();
+        if (isBlocking) {
             batch.draw((TextureRegion) blockingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
             return;
         }
@@ -110,7 +111,10 @@ public class Player extends Corpse {
             batch.draw((TextureRegion) jumpingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
             return;
         }
+        System.out.println(punch);
+
         if (punch) {
+            System.out.println("heee");
             batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
             punch = false;
             return;
@@ -181,6 +185,14 @@ public class Player extends Corpse {
         body.setTransform(body.getPosition(), 0f);
     }
 
+    public void setBlocking(Boolean b) {
+        isBlocking = b;
+    }
+
+    public void setDodging(boolean dodging) {
+        this.dodging = dodging;
+    }
+
     public boolean isDodging() {
         return dodging;
     }
@@ -195,6 +207,18 @@ public class Player extends Corpse {
 
     public boolean isClose() {
         return close;
+    }
+
+    public boolean isBlocking() {
+        return isBlocking;
+    }
+
+    public void hitten() {
+        hp -=10;  // TODO: 02/08/2019  10
+    }
+
+    public boolean isDead() {
+        return hp <= 0;
     }
 
     public void setMainGame(MainGame mainGame) {
