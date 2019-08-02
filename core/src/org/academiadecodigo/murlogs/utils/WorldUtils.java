@@ -1,10 +1,8 @@
 package org.academiadecodigo.murlogs.utils;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import org.academiadecodigo.murlogs.box2d.GroundUserData;
 import org.academiadecodigo.murlogs.box2d.PlayerUserData;
 import org.academiadecodigo.murlogs.box2d.PunchUserData;
@@ -62,6 +60,8 @@ public class WorldUtils {
         bodyDef.position.set(new Vector2(Constants.PLAYER_X, Constants.PLAYER_Y));
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Constants.PLAYER_WIDTH / 2, Constants.PLAYER_HEIGHT / 2);
+        CircleShape headShape = new CircleShape();
+        headShape.setPosition(new Vector2(Constants.PLAYER_X, Constants.PLAYER_Y+2f));
         Body body = world.createBody(bodyDef);
         body.setGravityScale(Constants.PLAYER_GRAVITY_SCALE);
         body.createFixture(shape, Constants.PLAYER_DENSITY);
@@ -71,17 +71,20 @@ public class WorldUtils {
         return body;
     }
 
-    public static Body createPunch(World world, Vector2 vector2){
+    public static Body createPunch(World world){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(new Vector2(vector2));
+        bodyDef.position.set(new Vector2(Constants.PLAYER_X, Constants.PLAYER_Y));
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Constants.PUNCH_WIDTH / 2, Constants.PUNCH_WIDTH / 2);
+        shape.setAsBox(Constants.PLAYER_WIDTH / 5, Constants.PLAYER_HEIGHT / 6);
+
         Body body = world.createBody(bodyDef);
         body.createFixture(shape, Constants.PUNCH_DENSITY);
         body.resetMassData();
         body.setUserData(new PunchUserData());
+        body.setGravityScale(0f);
         shape.dispose();
+        body.setFixedRotation(true);
         return body;
     }
 

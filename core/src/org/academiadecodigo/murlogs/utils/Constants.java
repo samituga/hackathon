@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Constants {
 
+    public static final String CHARACTERS_ATLAS_PATH = "./johnny_doe_walking_right/";
+
     public static final int GAME_WIDTH = 1024;
     public static final int GAME_HEIGHT = 576;
     public static final Vector2 WORLD_GRAVITY = new Vector2(0, -30);
@@ -38,7 +40,7 @@ public class Constants {
 
     public static final float PUNCH_WIDTH = 0.3f;
     public static final float PUNCH_HEIGHT = 0.2f;
-    public static final float PUNCH_DENSITY = 0.5f;
+    public static final float PUNCH_DENSITY = 0f;
 
 
     public static final Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 20f);
@@ -49,4 +51,5 @@ public class Constants {
     public static final float WORLD_TO_SCREEN = 32;
 
 
+    //public static final String[] PLAYER_RUNNING_REGION_NAMES = ;
 }

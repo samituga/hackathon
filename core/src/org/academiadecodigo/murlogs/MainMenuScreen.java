@@ -57,6 +57,7 @@ public class MainMenuScreen implements Screen {
 
         if (Gdx.input.isTouched()) {
 
+
             if ((Gdx.input.getX() > 50 && Gdx.input.getX() < 250) && (Gdx.input.getY() > 88 && Gdx.input.getY() < 188)) {
                 game.setScreen(new MainGame(game));
                 return;

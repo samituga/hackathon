@@ -7,9 +7,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import org.academiadecodigo.murlogs.App;
 import org.academiadecodigo.murlogs.characters.Player;
+import org.academiadecodigo.murlogs.characters.PlayerPunch;
 import org.academiadecodigo.murlogs.stages.GameStage;
 import org.academiadecodigo.murlogs.utils.Constants;
 import org.academiadecodigo.murlogs.utils.WorldUtils;
@@ -19,6 +22,7 @@ public class MainGame implements Screen {
     private GameStage stage;
     private App app;
     private Player player;
+    private PlayerPunch punch;
     private boolean crouch;
     private final Texture background = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
     private World gameStageWorld;
@@ -26,10 +30,10 @@ public class MainGame implements Screen {
     private OrthographicCamera camera;
     public MainGame(App app) {
         gameStageWorld = WorldUtils.createWorld();
-
         stage = new GameStage(gameStageWorld);
         this.app = app;
-        player =stage.getPlayer();
+        player = stage.getPlayer();
+        punch =  stage.getPunch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1024, 576);
 
@@ -42,6 +46,7 @@ public class MainGame implements Screen {
 
     @Override
     public void render(float delta) {
+
         camera.update();
         app.batch.setProjectionMatrix(camera.combined);
         app.batch.begin();
@@ -70,7 +75,7 @@ public class MainGame implements Screen {
             crouch = false;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.X)){
-            WorldUtils.createPunch(gameStageWorld,player.playerPosition() );
+
         }
     }
 

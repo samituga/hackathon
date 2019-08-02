@@ -18,4 +18,10 @@ public class BodyUtils {
 
         return userData != null && userData.getUserDataType() == UserDataType.GROUND;
     }
+
+    public static boolean bodyIsPunch(Body body) {
+        UserData userData = (UserData) body.getUserData();
+
+        return userData != null && userData.getUserDataType() == UserDataType.PUNCH;
+    }
 }

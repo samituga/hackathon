@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import org.academiadecodigo.murlogs.characters.Ground;
 import org.academiadecodigo.murlogs.characters.Player;
+import org.academiadecodigo.murlogs.characters.PlayerPunch;
 import org.academiadecodigo.murlogs.characters.SideLimit;
 import org.academiadecodigo.murlogs.utils.BodyUtils;
 import org.academiadecodigo.murlogs.utils.Constants;
@@ -29,6 +30,7 @@ public class GameStage extends Stage implements ContactListener {
     private Player player;
     private SideLimit leftSideLimit;
     private SideLimit rightSideLimit;
+    private PlayerPunch punch;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator;
@@ -55,6 +57,7 @@ public class GameStage extends Stage implements ContactListener {
         setUpRightSideLimit();
 
 
+
         //setupTouchControlAreas();
     }
 
@@ -78,6 +81,11 @@ public class GameStage extends Stage implements ContactListener {
     private void setUpGround() {
         ground = new Ground(WorldUtils.createGround(world));
         addActor(ground);
+    }
+
+    private void setUpPunch(){
+        punch = new PlayerPunch(WorldUtils.createPunch(world));
+        addActor(punch);
     }
 
     private void setupCamera() {
@@ -116,6 +124,11 @@ public class GameStage extends Stage implements ContactListener {
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
+        if (BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsPunch(b) ||
+                BodyUtils.bodyIsPunch(a) && BodyUtils.bodyIsPlayer(b)) {
+
+        }
+
         if ((BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsPlayer(b))) {
 
@@ -137,5 +150,9 @@ public class GameStage extends Stage implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    public PlayerPunch getPunch() {
+        return punch;
     }
 }
