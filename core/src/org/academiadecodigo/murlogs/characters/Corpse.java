@@ -13,7 +13,6 @@ public abstract class Corpse extends Actor {
         this.body = body;
         this.userData = (UserData)body.getUserData();
         body.setFixedRotation(true);
-
     }
 
     public abstract UserData getUserData();

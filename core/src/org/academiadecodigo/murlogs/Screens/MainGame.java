@@ -19,14 +19,18 @@ public class MainGame implements Screen {
     private Player player;
     private boolean crouch;
     private final Texture background = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
+    private Texture img;
+
 
     private OrthographicCamera camera;
+
     public MainGame(App app) {
         stage = new GameStage();
         this.app = app;
-        player =stage.getPlayer();
+        player = stage.getPlayer();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1024, 576);
+        img = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
 
     }
 
@@ -40,27 +44,27 @@ public class MainGame implements Screen {
         camera.update();
         app.batch.setProjectionMatrix(camera.combined);
         app.batch.begin();
-        app.batch.draw(background, 0, 0);
+        app.batch.draw(img, 0, 0);
         app.batch.end();
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
         stage.act(delta);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             player.jump();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             player.moveLeft();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player.moveRight();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player.dodge();
             crouch = true;
         }
-        if(!Gdx.input.isKeyPressed(Input.Keys.DOWN) && crouch){
+        if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && crouch) {
             player.stopDodge();
             crouch = false;
         }
@@ -88,6 +92,7 @@ public class MainGame implements Screen {
 
     @Override
     public void dispose() {
+        app.dispose();
 
     }
 
