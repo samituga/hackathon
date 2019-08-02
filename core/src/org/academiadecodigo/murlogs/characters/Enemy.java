@@ -106,4 +106,8 @@ public class Enemy extends Corpse {
     public boolean isBlock() {
         return block;
     }
+
+    public int getHp() {
+        return hp;
+    }
 }

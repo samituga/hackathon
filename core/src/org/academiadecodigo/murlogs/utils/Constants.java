@@ -49,7 +49,7 @@ public class Constants {
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 480;
     public static final float WORLD_TO_SCREEN = 32;
-    public static final String CHARACTERS_ATLAS_PATH = "./player/doe.txt";
+    public static final String CHARACTERS_ATLAS_PATH = "player/doe.txt";
     public static final String[] PLAYER_RUNNING_REGION_NAMES = new String[]{"0", "1", "2", "3", "4", "5", "6", "7"};
     public static final float ENEMY_X = 18f;
     public static final float ENEMY_Y = GROUND_Y + GROUND_HEIGHT;

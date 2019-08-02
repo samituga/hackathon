@@ -22,6 +22,7 @@ public class MainGame implements Screen {
     private Texture enemyDeath;
     private Texture playerdeath;
     private Screen mainMenuScreen;
+    private int attackIterator;
 
 
     private OrthographicCamera camera;
@@ -50,6 +51,8 @@ public class MainGame implements Screen {
         app.batch.setProjectionMatrix(camera.combined);
         app.batch.begin();
         app.batch.draw(img, 0, 0);
+        app.font.draw(app.batch, "HP: " + player.getHp(), 160f, 550f);
+        app.font.draw(app.batch, "HP: " + enemy.getHp(), 850f, 550f);
         app.batch.end();
 
         stage.draw();
@@ -87,9 +90,12 @@ public class MainGame implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && enemy.isClose()) {
-            System.out.println("Player punching");
-            enemy.hitten();
-            player.punch();
+            attackIterator ++;
+            if (attackIterator >= 10) {
+                enemy.hitten();
+                player.punch();
+                attackIterator = 0;
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.K)) {

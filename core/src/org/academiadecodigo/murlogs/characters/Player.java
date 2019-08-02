@@ -224,4 +224,8 @@ public class Player extends Corpse {
     public void setMainGame(MainGame mainGame) {
         this.mainGame = mainGame;
     }
+
+    public int getHp() {
+        return hp;
+    }
 }
