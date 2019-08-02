@@ -76,6 +76,9 @@ public class MainGame implements Screen {
             player.stopDodge();
             crouch = false;
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.X)){
+            player.punch();
+        }
     }
 
 
