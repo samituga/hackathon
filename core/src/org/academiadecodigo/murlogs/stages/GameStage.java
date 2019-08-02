@@ -46,18 +46,19 @@ public class GameStage extends Stage implements ContactListener {
 
     public GameStage() {
         setupWorld();
-        renderer = new Box2DDebugRenderer();
+        renderer = new Box2DDebugRenderer(false, true, false, true, false, true);
         setupCamera();
     }
 
     private void setupWorld() {
         world = WorldUtils.createWorld();
         world.setContactListener(this);
-        setUpGround();
         setUpPlayer();
+        setUpEnemy();
+        setUpGround();
         setUpLeftSideLimit();
         setUpRightSideLimit();
-        setUpEnemy();
+
 
         //setupTouchControlAreas();
     }
