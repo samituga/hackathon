@@ -76,8 +76,10 @@ public class MainGame implements Screen {
             crouch = false;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.J) && !player.isBlocking() && enemy.isClose()) {
-                enemy.hitten();
+        if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && enemy.isClose()) {
+            System.out.println("ffguyfhghjeuyibrvtyo356yvbyevhouoyb3tiuhyetubhyoyertvhboueyrthoiburthoivububioiouyeortiuvbhyhveiu");
+            enemy.hitten();
+            player.punch();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.K)) {
@@ -87,9 +89,9 @@ public class MainGame implements Screen {
             player.setBlocking(false);
         }
 
-        if(enemy.isAttack() && !player.isBlocking() && enemy.isClose()){
+        if (enemy.isAttack() && !player.isBlocking() && enemy.isClose()) {
             System.out.println("DGHCHCKGCNGHFMJDVBFDHVD,JHF");
-           player.hitten();
+            player.hitten();
         }
 
     }

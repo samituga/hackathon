@@ -71,10 +71,9 @@ public class Player extends Corpse {
 
 
         stateTime += Gdx.graphics.getDeltaTime();
-
         if (punch) {
-            System.out.println("punch");
             batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime,true),(getX() - 1f) * 50, getY() * 15, 128, 256);
+            return;
         }
 
         if (jumping) {
@@ -120,6 +119,7 @@ public class Player extends Corpse {
     }
 
     public void punch() {
+        punch = true;
         if (Gdx.input.isKeyPressed(Input.Keys.X)) {
             punch = true;
         }
