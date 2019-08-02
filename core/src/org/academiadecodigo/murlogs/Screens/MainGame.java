@@ -77,7 +77,9 @@ public class MainGame implements Screen {
             crouch = false;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.J)) {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+            player.punch();
             if (enemy.isClose()) {
                 enemy.hitten();
             }
