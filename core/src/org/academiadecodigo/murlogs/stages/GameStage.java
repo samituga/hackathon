@@ -42,7 +42,7 @@ public class GameStage extends Stage implements ContactListener {
 
     public GameStage() {
         setupWorld();
-        renderer = new Box2DDebugRenderer();
+        renderer = new Box2DDebugRenderer(false, true, false, true, false, true);
         setupCamera();
     }
 
@@ -53,8 +53,6 @@ public class GameStage extends Stage implements ContactListener {
         setUpPlayer();
         setUpLeftSideLimit();
         setUpRightSideLimit();
-
-        //setupTouchControlAreas();
     }
 
     private void setUpPlayer() {
