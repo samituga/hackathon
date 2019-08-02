@@ -79,7 +79,7 @@ public class Player extends Corpse {
 
     public void moveLeft() {
         leftIt++;
-        if (leftIt >= 3) {
+        if (leftIt >= 1) {
             body.applyLinearImpulse(Constants.PLAYER_LEFT, Constants.PLAYER_LEFT, true);
             leftIt = 0;
         }
@@ -87,7 +87,7 @@ public class Player extends Corpse {
 
     public void moveRight() {
         rightIt++;
-        if (rightIt >= 3) {
+        if (rightIt >= 1) {
             body.applyLinearImpulse(Constants.PLAYER_RIGHT, Constants.PLAYER_RIGHT, true);
             rightIt = 0;
         }
