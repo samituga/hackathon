@@ -32,6 +32,8 @@ public class Player extends Corpse {
     private Animation punchingAnimation;
     private boolean punch;
     private boolean close;
+    private boolean isBlocking;
+    private int hp = 100;
 
     public Player(Body body) {
         super(body);
@@ -71,7 +73,10 @@ public class Player extends Corpse {
 
 
         stateTime += Gdx.graphics.getDeltaTime();
-
+        if (punch) {
+            batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime,true),(getX() - 1f) * 50, getY() * 15, 128, 256);
+            return;
+        }
 
         if (jumping) {
             batch.draw((TextureRegion) jumpingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
@@ -148,6 +153,10 @@ public class Player extends Corpse {
         body.setTransform(body.getPosition(), 0f);
     }
 
+    public void setBlocking(Boolean b){
+        isBlocking = b;
+    }
+
     public boolean isDodging() {
         return dodging;
     }
@@ -162,5 +171,17 @@ public class Player extends Corpse {
 
     public boolean isClose() {
         return close;
+    }
+
+    public boolean isBlocking() {
+        return isBlocking;
+    }
+
+    public void hitten(){
+        System.out.println("hitting");
+        hp-=10;  // TODO: 02/08/2019  10
+    }
+    public boolean isDead() {
+        return hp <= 0;
     }
 }

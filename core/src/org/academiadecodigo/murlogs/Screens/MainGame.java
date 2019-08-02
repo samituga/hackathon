@@ -52,7 +52,6 @@ public class MainGame implements Screen {
         app.batch.begin();
         app.batch.draw(img, 0, 0);
         app.batch.end();
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
         stage.act(delta);
@@ -78,12 +77,24 @@ public class MainGame implements Screen {
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && enemy.isClose()) {
+            System.out.println("ffguyfhghjeuyibrvtyo356yvbyevhouoyb3tiuhyetubhyoyertvhboueyrthoiburthoivububioiouyeortiuvbhyhveiu");
+            enemy.hitten();
             player.punch();
-            if (enemy.isClose()) {
-                enemy.hitten();
-            }
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+            player.setBlocking(true);
+        }
+        if (!Gdx.input.isKeyPressed(Input.Keys.K)) {
+            player.setBlocking(false);
+        }
+
+        if (enemy.isAttack() && !player.isBlocking() && enemy.isClose()) {
+            System.out.println("DGHCHCKGCNGHFMJDVBFDHVD,JHF");
+            player.hitten();
+        }
+
     }
 
 
@@ -94,7 +105,7 @@ public class MainGame implements Screen {
             finish(enemyDeath);
 
         }
-        if (enemy.isDead()) { // TODO: 02/08/2019 player
+        if (player.isDead()) { // TODO: 02/08/2019 player
             playerdeath = new Texture(Gdx.files.internal(Constants.PLAYER_LOSE_IMAGE_PATH));
             finish(playerdeath);
         }

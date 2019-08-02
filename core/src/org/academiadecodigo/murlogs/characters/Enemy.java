@@ -14,6 +14,8 @@ public class Enemy extends Corpse {
     private boolean initialMove = true;
     private int hp = 100;
     private boolean isDead = false;
+    private boolean attack;
+    private boolean block;
 
 
     public Enemy(Body body) {
@@ -32,10 +34,6 @@ public class Enemy extends Corpse {
 
 
     public void enemyMove() {
-        if (isDead) {
-
-
-        }
 
         if (initialMove) {
             for (int i = 0; i < 50; i++) {
@@ -58,6 +56,23 @@ public class Enemy extends Corpse {
             iterators = 0;
         }
 
+        if(isClose()){
+            double blockOrAttack = random;
+
+
+            if(blockOrAttack < 0.1f){
+                block = true;
+                attack = false;
+            }
+            if(blockOrAttack >=0.1f && blockOrAttack < 0.2f){
+                attack = true;
+                block = false;
+            }
+            if(blockOrAttack >= 0.2f){
+                block = false;
+                attack = false;
+            }
+        }
 
         switch (directions) {
             case LEFT:
@@ -70,14 +85,11 @@ public class Enemy extends Corpse {
     }
 
     public boolean isDead() {
-        return isDead;
+        return hp <= 0;
     }
 
-    public void hitten(){
+    public void hitten(){ // TODO: 02/08/2019  10
         hp -= 100;
-        if (hp <= 0) {
-            isDead = true;
-        }
     }
 
     public void setClose(boolean b) {
@@ -85,5 +97,13 @@ public class Enemy extends Corpse {
     }
     public boolean isClose() {
         return close;
+    }
+
+    public boolean isAttack() {
+        return attack;
+    }
+
+    public boolean isBlock() {
+        return block;
     }
 }
