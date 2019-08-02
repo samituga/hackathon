@@ -89,7 +89,7 @@ public class Enemy extends Corpse {
     }
 
     public void hitten(){ // TODO: 02/08/2019  10
-        hp -= 100;
+        hp -= 10;
     }
 
     public void setClose(boolean b) {

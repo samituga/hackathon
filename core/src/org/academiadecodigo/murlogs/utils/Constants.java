@@ -3,6 +3,7 @@ package org.academiadecodigo.murlogs.utils;
 import com.badlogic.gdx.math.Vector2;
 
 
+
 public class Constants {
 
 
@@ -56,11 +57,13 @@ public class Constants {
     public static final float ENEMY_DODGE_Y = 1.5f;
     //public static final String PUNCH_ATLAS = "./player/doe.txt";
     //public static final String JUMP_ATLAS = "./player/doe.txt";
-    public static final String[] PLAYER_JUMPING_IMAGE_SET = new String[]{"00", "01", "02","03","04","05","06","07","08","09"};
-    public static final String[] PLAYER_PUNCHING_IMAGE_SET = new String[]{"sprite_0", "sprite_1", "sprite_2", "sprite_3"};
+    public static final String[] PLAYER_JUMPING_IMAGE_SET = new String[]{"00", "01", "02", "03", "04", "05", "06", "07", "08", "09"};
+    public static final String[] PLAYER_PUNCHING_IMAGE_SET = new String[]{"sprite0", "sprite1", "sprite2", "sprite3"};
     public static final String PLAYER_LOSE_IMAGE_PATH = "playerLose.png";
     public static final String PLAYER_WIN_IMAGE_PATH = "playerWin.png";
-
+    public static final String[] PLAYER_CROUCHING_IMAGE_SET = new String[]{"crouching0", "crouching1", "crouching2"};
+    public static final String[] PLAYER_BLOCKING_IMAGE_SET = new String[]{"sprite20", "sprite21", "sprite22"};
+    public static final String CHARACTERS_ATLAS_BLOCK_PATH = "./player/block/block.txt";
     /*public static final String PLAYER_DODGING_REGION_NAME = ;
     public static final String PLAYER_JUMPING_REGION_NAME = ;
     public static final String PLAYER_HIT_REGION_NAME = ; [""];*/

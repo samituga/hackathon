@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import org.academiadecodigo.murlogs.Screens.MainGame;
 import org.academiadecodigo.murlogs.box2d.PlayerUserData;
 import org.academiadecodigo.murlogs.box2d.UserData;
 import org.academiadecodigo.murlogs.utils.Constants;
@@ -30,10 +31,13 @@ public class Player extends Corpse {
     private int rightIt = 0;
     private Animation jumpingAnimation;
     private Animation punchingAnimation;
+    private Animation crouchingAnimation;
+    private Animation blockingAnimation;
     private boolean punch;
     private boolean close;
     private boolean isBlocking;
     private int hp = 100;
+    private MainGame mainGame;
 
     public Player(Body body) {
         super(body);
@@ -60,10 +64,26 @@ public class Player extends Corpse {
             punchingFrames[i] = texturesPunchAtlas.findRegion(path);
         }
 
+        TextureRegion[] crouchingFrames = new TextureRegion[Constants.PLAYER_CROUCHING_IMAGE_SET.length];
+        for (int i = 0; i < Constants.PLAYER_CROUCHING_IMAGE_SET.length; i++) {
+            String path = Constants.PLAYER_CROUCHING_IMAGE_SET[i];
+            crouchingFrames[i] = texturesPunchAtlas.findRegion(path);
+        }
+
+        TextureAtlas textureBlockingAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_BLOCK_PATH);
+        TextureRegion[] blockingFrames = new TextureRegion[Constants.PLAYER_BLOCKING_IMAGE_SET.length];
+        for (int i = 0; i < Constants.PLAYER_BLOCKING_IMAGE_SET.length; i++) {
+            String path = Constants.PLAYER_BLOCKING_IMAGE_SET[i];
+            System.out.println(path);
+            blockingFrames[i] = textureBlockingAtlas.findRegion(path);
+        }
+
 
         jumpingAnimation = new Animation(0.2f, jumpingFrames);
         runningAnimation = new Animation(0.2f, runningFrames);
         punchingAnimation = new Animation(0.2f, punchingFrames);
+        crouchingAnimation = new Animation(0.2f, crouchingFrames);
+        blockingAnimation = new Animation(0.2f, blockingFrames);
         stateTime += Gdx.graphics.getDeltaTime();
 
     }
@@ -73,16 +93,28 @@ public class Player extends Corpse {
 
 
         stateTime += Gdx.graphics.getDeltaTime();
-        if (punch) {
-            batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime,true),(getX() - 1f) * 50, getY() * 15, 128, 256);
+
+        if (dodging) {
+            int width = (int) (128 / 1.4);
+            int height = (int) (256 / 1.4);
+            batch.draw((TextureRegion) crouchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, width, height);
             return;
         }
+
+        if (isBlocking) {
+            batch.draw((TextureRegion) blockingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
+            return;
+        }
+
 
         if (jumping) {
             batch.draw((TextureRegion) jumpingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
             return;
         }
+        System.out.println(punch);
+
         if (punch) {
+            System.out.println("heee");
             batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
             punch = false;
             return;
@@ -153,8 +185,12 @@ public class Player extends Corpse {
         body.setTransform(body.getPosition(), 0f);
     }
 
-    public void setBlocking(Boolean b){
+    public void setBlocking(Boolean b) {
         isBlocking = b;
+    }
+
+    public void setDodging(boolean dodging) {
+        this.dodging = dodging;
     }
 
     public boolean isDodging() {
@@ -177,11 +213,15 @@ public class Player extends Corpse {
         return isBlocking;
     }
 
-    public void hitten(){
-        System.out.println("hitting");
-        hp-=10;  // TODO: 02/08/2019  10
+    public void hitten() {
+        hp -=10;  // TODO: 02/08/2019  10
     }
+
     public boolean isDead() {
         return hp <= 0;
+    }
+
+    public void setMainGame(MainGame mainGame) {
+        this.mainGame = mainGame;
     }
 }

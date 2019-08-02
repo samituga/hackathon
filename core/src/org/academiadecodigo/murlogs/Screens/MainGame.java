@@ -18,7 +18,6 @@ public class MainGame implements Screen {
     private App app;
     private Player player;
     private Enemy enemy;
-    private boolean crouch;
     private Texture img;
     private Texture enemyDeath;
     private Texture playerdeath;
@@ -36,7 +35,7 @@ public class MainGame implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1024, 576);
         img = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
-
+        player.setMainGame(this);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class MainGame implements Screen {
 
         stage.getEnemy().enemyMove();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player.jump();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -69,16 +68,23 @@ public class MainGame implements Screen {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player.dodge();
-            crouch = true;
+            player.setDodging(true);
         }
-        if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && crouch) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.isDodging()) {
             player.stopDodge();
-            crouch = false;
+            player.setDodging(false);
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.setBlocking(true);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+            player.punch();
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && enemy.isClose()) {
-            System.out.println("ffguyfhghjeuyibrvtyo356yvbyevhouoyb3tiuhyetubhyoyertvhboueyrthoiburthoivububioiouyeortiuvbhyhveiu");
+            System.out.println("Player punching");
             enemy.hitten();
             player.punch();
         }
@@ -91,7 +97,6 @@ public class MainGame implements Screen {
         }
 
         if (enemy.isAttack() && !player.isBlocking() && enemy.isClose()) {
-            System.out.println("DGHCHCKGCNGHFMJDVBFDHVD,JHF");
             player.hitten();
         }
 
@@ -142,4 +147,9 @@ public class MainGame implements Screen {
 
         app.setScreen(new EndScreen(app, mainMenuScreen, texture));
     }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
 }
