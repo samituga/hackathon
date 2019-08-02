@@ -1,9 +1,7 @@
 package org.academiadecodigo.murlogs.characters;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.Body;
 import org.academiadecodigo.murlogs.box2d.EnemyUserData;
-import org.academiadecodigo.murlogs.box2d.PlayerUserData;
 import org.academiadecodigo.murlogs.box2d.UserData;
 import org.academiadecodigo.murlogs.utils.Constants;
 
@@ -13,6 +11,10 @@ public class Enemy extends Corpse {
     protected boolean isClose;
     protected UserData userData;
     private int iterators;
+    private boolean initialMove = true;
+    private int hp = 100;
+    private boolean isDead = false;
+
 
     public Enemy(Body body) {
         super(body);
@@ -29,27 +31,46 @@ public class Enemy extends Corpse {
         return (EnemyUserData) userData;
     }
 
+    Directions directions = Directions.STOP;
+
 
     public void enemyMove() {
+        if (isDead) {
 
-        Directions directions = Directions.LEFT;
+
+        }
+
+        if (initialMove) {
+            for (int i = 0; i < 50; i++) {
+                body.applyLinearImpulse(Constants.ENEMY_LEFT, Constants.ENEMY_LEFT, true);
+                if (body.getPosition().x <= 10f) {
+                    System.out.println("STOP!!!!!!!!");
+                    break;
+                }
+            }
+            initialMove = false;
+        }
+
 
         double random = Math.random();
 
         iterators++;
 
-        if (iterators >= 10) {
-            directions = random > 0.50f ? Directions.LEFT : Directions.RIGHT;
+
+        if (iterators >= 30) {
+            directions = random > 0.4f ? Directions.LEFT : Directions.RIGHT;
             iterators = 0;
         }
 
-        //body.applyLinearImpulse(Constants.PLAYER_LEFT, Constants.PLAYER_LEFT, true);
+        if (isClose) {
 
 
-        System.out.println(directions);
+        }
+
         switch (directions) {
             case LEFT:
-                body.applyLinearImpulse(Constants.PLAYER_LEFT, Constants.PLAYER_LEFT, true);
+                //this.setX(this.getX() + 3f);
+                body.applyLinearImpulse(Constants.ENEMY_LEFT, Constants.ENEMY_LEFT, true);
                 break;
             case RIGHT:
                 body.applyLinearImpulse(Constants.ENEMY_RIGHT, Constants.ENEMY_RIGHT, true);
@@ -57,5 +78,7 @@ public class Enemy extends Corpse {
         }
     }
 
-
+    public boolean isDead() {
+        return isDead;
+    }
 }

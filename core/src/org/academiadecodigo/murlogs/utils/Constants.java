@@ -10,7 +10,8 @@ public class Constants {
     public static final Vector2 WORLD_GRAVITY = new Vector2(0, -30);
     public static final Vector2 PLAYER_LEFT = new Vector2(-0.4f, 0);
     public static final Vector2 PLAYER_RIGHT = new Vector2(0.4f, 0);
-    public static final Vector2 ENEMY_RIGHT = new Vector2(0.8f, 0);
+    public static final Vector2 ENEMY_RIGHT = new Vector2(0.5f, 0);
+    public static final Vector2 ENEMY_LEFT = new Vector2(-0.3f, 0);
 
     public static final int LEFT_X = -1;
     public static final int RIGHT_X = 1;

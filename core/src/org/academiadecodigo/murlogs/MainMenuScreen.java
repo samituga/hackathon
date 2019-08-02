@@ -40,9 +40,8 @@ public class MainMenuScreen implements Screen {
 
         if (Gdx.input.isTouched()) {
             it--;
-            System.out.println(it);
             if ((Gdx.input.getX() > 80 && Gdx.input.getX() < 230) && (Gdx.input.getY() > 240 && Gdx.input.getY() < 320)) {
-                game.setScreen(new MainGame(game));
+                game.setScreen(new MainGame(game, this));
                 return;
             }
             if ((Gdx.input.getX() > 80 && Gdx.input.getX() < 230) && (Gdx.input.getY() > 336 && Gdx.input.getY() < 416)) {

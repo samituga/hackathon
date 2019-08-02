@@ -1,10 +1,8 @@
 package org.academiadecodigo.murlogs.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import org.academiadecodigo.murlogs.App;
@@ -18,17 +16,22 @@ public class MainGame implements Screen {
     private GameStage stage;
     private App app;
     private Player player;
+    private Enemy enemy;
     private boolean crouch;
-    private final Texture background = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
     private Texture img;
+    private Texture enemyDeath;
+    private Texture playerdeath;
+    private Screen mainMenuScreen;
 
 
     private OrthographicCamera camera;
 
-    public MainGame(App app) {
+    public MainGame(App app, Screen mainMenuScreen) {
         stage = new GameStage();
         this.app = app;
+        this.mainMenuScreen = mainMenuScreen;
         player = stage.getPlayer();
+        enemy = stage.getEnemy();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1024, 576);
         img = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
@@ -42,6 +45,7 @@ public class MainGame implements Screen {
 
     @Override
     public void render(float delta) {
+        checkEndGame();
         camera.update();
         app.batch.setProjectionMatrix(camera.combined);
         app.batch.begin();
@@ -73,6 +77,24 @@ public class MainGame implements Screen {
         }
     }
 
+
+    private void checkEndGame() {
+
+        if (enemy.isDead()) { // TODO: 02/08/2019  
+            enemyDeath = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
+            finish(enemyDeath);
+
+        }
+
+        if (enemy.isDead()) { // TODO: 02/08/2019 player
+            playerdeath = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
+            finish(playerdeath);
+
+        }
+
+    }
+
+
     @Override
     public void resize(int width, int height) {
 
@@ -96,6 +118,11 @@ public class MainGame implements Screen {
     @Override
     public void dispose() {
         app.dispose();
+    }
 
+    private void finish(Texture texture) {
+
+
+        app.setScreen(new EndScreen(app, mainMenuScreen));
     }
 }
