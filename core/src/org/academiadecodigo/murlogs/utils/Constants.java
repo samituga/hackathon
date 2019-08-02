@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Constants {
 
 
-
     public static final int GAME_WIDTH = 1024;
     public static final int GAME_HEIGHT = 576;
     public static final Vector2 WORLD_GRAVITY = new Vector2(0, -30);
     public static final Vector2 PLAYER_LEFT = new Vector2(-0.4f, 0);
-    public static final Vector2 PLAYER_RIGHT = new Vector2(0.4f,0);
+    public static final Vector2 PLAYER_RIGHT = new Vector2(0.4f, 0);
+    public static final Vector2 ENEMY_RIGHT = new Vector2(0.8f, 0);
 
     public static final int LEFT_X = -1;
     public static final int RIGHT_X = 1;
@@ -34,11 +34,11 @@ public class Constants {
     public static final float PLAYER_X = 2;
     public static final float PLAYER_Y = GROUND_Y + GROUND_HEIGHT;
     public static final float PLAYER_WIDTH = 1f;
-    public static final float PLAYER_HEIGHT = 2f;
+    public static final float PLAYER_HEIGHT = 3f;
     public static final float PLAYER_DENSITY = 0.5f;
     public static final float PLAYER_DODGE_X = 2f;
     public static final float PLAYER_DODGE_Y = 1.5f;
-    public static final float PLAYER_GRAVITY_SCALE = 3f;
+    public static final float PLAYER_GRAVITY_SCALE = 1.5f;
 
     public static final Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 20f);
 
@@ -47,10 +47,11 @@ public class Constants {
     public static final int APP_HEIGHT = 480;
     public static final float WORLD_TO_SCREEN = 32;
     public static final String CHARACTERS_ATLAS_PATH = "./player/doe_walking_right/doe_walking_right.txt";
-    public static final String[] PLAYER_RUNNING_REGION_NAMES = new String[]{"0","1","2","3","4","5","6","7"};
+    public static final String[] PLAYER_RUNNING_REGION_NAMES = new String[]{"0", "1", "2", "3", "4", "5", "6", "7"};
     public static final float ENEMY_X = 18f;
-    public static final float ENEMY_Y = 0f;
-    public static final float ENEMY_DODGE_X = 18;
+    public static final float ENEMY_Y = GROUND_Y + GROUND_HEIGHT;
+    public static final float ENEMY_DODGE_X = 2f;
+    public static final float ENEMY_DODGE_Y = 1.5f;
     /*public static final String PLAYER_DODGING_REGION_NAME = ;
     public static final String PLAYER_JUMPING_REGION_NAME = ;
     public static final String PLAYER_HIT_REGION_NAME = ; [""];*/

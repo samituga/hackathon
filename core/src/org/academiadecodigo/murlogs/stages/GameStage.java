@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import org.academiadecodigo.murlogs.characters.Enemy;
 import org.academiadecodigo.murlogs.characters.Ground;
 import org.academiadecodigo.murlogs.characters.Player;
 import org.academiadecodigo.murlogs.characters.SideLimit;
@@ -27,6 +28,7 @@ public class GameStage extends Stage implements ContactListener {
     private World world;
     private Ground ground;
     private Player player;
+    private Enemy enemy;
     private SideLimit leftSideLimit;
     private SideLimit rightSideLimit;
 
@@ -53,6 +55,7 @@ public class GameStage extends Stage implements ContactListener {
         setUpPlayer();
         setUpLeftSideLimit();
         setUpRightSideLimit();
+        setUpEnemy();
 
         //setupTouchControlAreas();
     }
@@ -60,6 +63,12 @@ public class GameStage extends Stage implements ContactListener {
     private void setUpPlayer() {
         player = new Player(WorldUtils.createPlayer(world));
         addActor(player);
+
+    }
+
+    private void setUpEnemy() {
+        enemy = new Enemy(WorldUtils.createEnemy(world));
+        addActor(enemy);
 
     }
 
@@ -115,12 +124,18 @@ public class GameStage extends Stage implements ContactListener {
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
+
         if ((BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsPlayer(b))) {
 
             player.landed();
-        }
 
+        }
+        if((BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsPlayer(b)) ||
+                BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsEnemy(b)){
+            System.out.println("enemy is close");
+            enemy.isClose();
+        }
     }
 
     @Override
@@ -136,5 +151,9 @@ public class GameStage extends Stage implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
     }
 }

@@ -4,5 +4,6 @@ public enum UserDataType {
 
     GROUND,
     PLAYER,
-    SIDELIMIT
+    SIDELIMIT,
+    ENEMY
 }
