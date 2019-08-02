@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import org.academiadecodigo.murlogs.characters.Ground;
 import org.academiadecodigo.murlogs.characters.Player;
+import org.academiadecodigo.murlogs.characters.SideLimit;
 import org.academiadecodigo.murlogs.utils.BodyUtils;
 import org.academiadecodigo.murlogs.utils.Constants;
 import org.academiadecodigo.murlogs.utils.WorldUtils;
@@ -26,6 +27,8 @@ public class GameStage extends Stage implements ContactListener {
     private World world;
     private Ground ground;
     private Player player;
+    private SideLimit leftSideLimit;
+    private SideLimit rightSideLimit;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator;
@@ -48,6 +51,9 @@ public class GameStage extends Stage implements ContactListener {
         world.setContactListener(this);
         setUpGround();
         setUpPlayer();
+        setUpLeftSideLimit();
+        setUpRightSideLimit();
+
         //setupTouchControlAreas();
     }
 
@@ -55,7 +61,17 @@ public class GameStage extends Stage implements ContactListener {
         player = new Player(WorldUtils.createPlayer(world));
         addActor(player);
 
+    }
 
+    private void setUpLeftSideLimit() {
+        leftSideLimit = new SideLimit(WorldUtils.createLeftSideLimit(world));
+        addActor(leftSideLimit);
+
+    }
+
+    private void setUpRightSideLimit() {
+        rightSideLimit = new SideLimit(WorldUtils.createRightSideLimit(world));
+        addActor(rightSideLimit);
     }
 
     private void setUpGround() {

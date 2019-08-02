@@ -12,6 +12,16 @@ public class Constants {
 
     public static final float GROUND_X = 0;
     public static final float GROUND_Y = 0;
+
+    public static final float LEFT_LIMIT_X = 0f;
+    public static final float LEFT_LIMIT_Y = 0;
+    public static final float LEFT_LIMIT_WIDTH = 1;
+    public static final float LEFT_LIMIT_HEIGHT = 576;
+    public static final float RIGHT_LIMIT_X = 20f;
+    public static final float RIGHT_LIMIT_Y = 0;
+    public static final float RIGHT_LIMIT_WIDTH = 1;
+    public static final float RIGHT_LIMIT_HEIGHT = 576;
+
     public static final float GROUND_WIDTH = 25f;
     public static final float GROUND_HEIGHT = 2f;
     public static final float GROUND_DENSITY = 0f;
