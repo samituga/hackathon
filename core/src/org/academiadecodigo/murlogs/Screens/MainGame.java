@@ -3,6 +3,7 @@ package org.academiadecodigo.murlogs.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import org.academiadecodigo.murlogs.App;

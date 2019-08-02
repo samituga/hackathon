@@ -25,7 +25,9 @@ public class Player extends Corpse {
     private float stateTime;
     private int leftIt = 0;
     private int rightIt = 0;
-
+    private Animation jumpingAnimation;
+    private Animation punchingAnimation;
+    private boolean punch;
 
     public Player(Body body) {
         super(body);
@@ -36,8 +38,26 @@ public class Player extends Corpse {
             String path = Constants.PLAYER_RUNNING_REGION_NAMES[i];
             runningFrames[i] = textureAtlas.findRegion(path);
         }
+
+
+        TextureAtlas texturesJumpAtlas = new TextureAtlas(Constants.JUMP_ATLAS);
+        TextureRegion[] jumpingFrames = new TextureRegion[Constants.PLAYER_JUMPING_IMAGE_SET.length];
+        for (int i = 0; i < Constants.PLAYER_JUMPING_IMAGE_SET.length; i++) {
+            String path = Constants.PLAYER_JUMPING_IMAGE_SET[i];
+            jumpingFrames[i] = texturesJumpAtlas.findRegion(path);
+        }
+
+        TextureAtlas texturesPunchAtlas = new TextureAtlas(Constants.PUNCH_ATLAS);
+        TextureRegion[] punchingFrames = new TextureRegion[Constants.PLAYER_PUNCHING_IMAGE_SET.length];
+        for (int i = 0; i < Constants.PLAYER_PUNCHING_IMAGE_SET.length; i++) {
+            String path = Constants.PLAYER_PUNCHING_IMAGE_SET[i];
+            punchingFrames[i] = texturesPunchAtlas.findRegion(path);
+        }
+        jumpingAnimation = new Animation(0.2f, jumpingFrames);
+        //jumpingTexture = textureAtlas.findRegion(Constants.PLAYER_JUMPING_IMAGE_SET);
         runningAnimation = new Animation(0.2f, runningFrames);
-        stateTime = 1f;
+        punchingAnimation = new Animation(0.2f, punchingFrames);
+        stateTime += Gdx.graphics.getDeltaTime();
         /*jumpingTexture = textureAtlas.findRegion(Constants.PLAYER_JUMPING_REGION_NAME);
         dodgingTexture = textureAtlas.findRegion(Constants.PLAYER_DODGING_REGION_NAME);
         hitTexture = textureAtlas.findRegion(Constants.PLAYER_HIT_REGION_NAME);*/
@@ -48,6 +68,17 @@ public class Player extends Corpse {
 
 
         stateTime += Gdx.graphics.getDeltaTime();
+
+        if (punch) {
+            System.out.println("punch");
+            batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime,true),(getX() - 1f) * 50, getY() * 15, 128, 256);
+        }
+
+        if (jumping) {
+
+            batch.draw((TextureRegion) jumpingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
+            return;
+        }
 
         batch.draw((TextureRegion) runningAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
 
@@ -82,6 +113,12 @@ public class Player extends Corpse {
         if (leftIt >= 1) {
             body.applyLinearImpulse(Constants.PLAYER_LEFT, Constants.PLAYER_LEFT, true);
             leftIt = 0;
+        }
+    }
+
+    public void punch() {
+        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+            punch = true;
         }
     }
 
