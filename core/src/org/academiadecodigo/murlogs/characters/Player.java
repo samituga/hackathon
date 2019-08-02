@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import org.academiadecodigo.murlogs.Screens.MainGame;
 import org.academiadecodigo.murlogs.box2d.PlayerUserData;
 import org.academiadecodigo.murlogs.box2d.UserData;
 import org.academiadecodigo.murlogs.utils.Constants;
@@ -30,8 +31,11 @@ public class Player extends Corpse {
     private int rightIt = 0;
     private Animation jumpingAnimation;
     private Animation punchingAnimation;
+    private Animation crouchingAnimation;
+    private Animation blockingAnimation;
     private boolean punch;
     private boolean close;
+    private MainGame mainGame;
 
     public Player(Body body) {
         super(body);
@@ -58,10 +62,26 @@ public class Player extends Corpse {
             punchingFrames[i] = texturesPunchAtlas.findRegion(path);
         }
 
+        TextureRegion[] crouchingFrames = new TextureRegion[Constants.PLAYER_CROUCHING_IMAGE_SET.length];
+        for (int i = 0; i < Constants.PLAYER_CROUCHING_IMAGE_SET.length; i++) {
+            String path = Constants.PLAYER_CROUCHING_IMAGE_SET[i];
+            crouchingFrames[i] = texturesPunchAtlas.findRegion(path);
+        }
+
+        TextureAtlas textureBlockingAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_BLOCK_PATH);
+        TextureRegion[] blockingFrames = new TextureRegion[Constants.PLAYER_BLOCKING_IMAGE_SET.length];
+        for (int i = 0; i < Constants.PLAYER_BLOCKING_IMAGE_SET.length; i++) {
+            String path = Constants.PLAYER_BLOCKING_IMAGE_SET[i];
+            System.out.println(path);
+            blockingFrames[i] = textureBlockingAtlas.findRegion(path);
+        }
+
 
         jumpingAnimation = new Animation(0.2f, jumpingFrames);
         runningAnimation = new Animation(0.2f, runningFrames);
         punchingAnimation = new Animation(0.2f, punchingFrames);
+        crouchingAnimation = new Animation(0.2f, crouchingFrames);
+        blockingAnimation = new Animation(0.2f, blockingFrames);
         stateTime += Gdx.graphics.getDeltaTime();
 
     }
@@ -71,6 +91,19 @@ public class Player extends Corpse {
 
 
         stateTime += Gdx.graphics.getDeltaTime();
+
+        if(mainGame.isCrouch()){
+            int width = (int) (128/1.4);
+            int height = (int) (256/1.4);
+            batch.draw((TextureRegion)crouchingAnimation.getKeyFrame(stateTime, true),(getX() - 1f) * 50, getY() * 15, width,height);
+            return;
+        }
+
+        if(mainGame.isBlocking()){
+            System.out.println();
+            batch.draw((TextureRegion) blockingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
+            return;
+        }
 
 
         if (jumping) {
@@ -162,5 +195,9 @@ public class Player extends Corpse {
 
     public boolean isClose() {
         return close;
+    }
+
+    public void setMainGame(MainGame mainGame) {
+        this.mainGame = mainGame;
     }
 }

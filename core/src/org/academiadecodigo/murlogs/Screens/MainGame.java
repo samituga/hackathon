@@ -23,6 +23,7 @@ public class MainGame implements Screen {
     private Texture enemyDeath;
     private Texture playerdeath;
     private Screen mainMenuScreen;
+    private boolean blocking;
 
 
     private OrthographicCamera camera;
@@ -36,7 +37,7 @@ public class MainGame implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1024, 576);
         img = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
-
+        player.setMainGame(this);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class MainGame implements Screen {
 
         stage.getEnemy().enemyMove();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.J)) {
             player.jump();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -75,6 +76,10 @@ public class MainGame implements Screen {
         if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && crouch) {
             player.stopDodge();
             crouch = false;
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            blocking = true;
         }
 
 
@@ -130,5 +135,17 @@ public class MainGame implements Screen {
 
 
         app.setScreen(new EndScreen(app, mainMenuScreen, texture));
+    }
+
+    public boolean isCrouch() {
+        return crouch;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public boolean isBlocking() {
+        return blocking;
     }
 }
