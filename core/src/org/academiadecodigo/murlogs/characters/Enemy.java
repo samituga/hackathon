@@ -58,12 +58,12 @@ public class Enemy extends Corpse {
         int width = (int) (128 / 1.1);
         int height = (int) (256 / 1.2);
         if (directions != null) {
-            batch.draw((TextureRegion) runningAnimation.getKeyFrame(stateTime, true), (getX() * 50 - 1f), getY() * 12, width, height);
+            batch.draw((TextureRegion) runningAnimation.getKeyFrame(stateTime, true), (getX() * 50 - 1f), getY() * 18, width, height);
             return;
         }
 
         if (attack == true) {
-            batch.draw((TextureRegion) hittingAnimation.getKeyFrame(stateTime, true), (getX() * 50 - 1f), getY() * 12, width, height);
+            batch.draw((TextureRegion) hittingAnimation.getKeyFrame(stateTime, true), (getX() * 50 - 1f), getY() * 18, width, height);
             return;
         }
 

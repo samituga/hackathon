@@ -46,7 +46,7 @@ public class GameStage extends Stage implements ContactListener {
 
     public GameStage() {
         setupWorld();
-        renderer = new Box2DDebugRenderer(true, true, false, true, false, true);
+        renderer = new Box2DDebugRenderer(false, true, false, true, false, true);
         setupCamera();
     }
 
