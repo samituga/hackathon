@@ -64,7 +64,9 @@ public class Constants {
     public static final String[] PLAYER_CROUCHING_IMAGE_SET = new String[]{"crouching0", "crouching1", "crouching2"};
     public static final String[] PLAYER_BLOCKING_IMAGE_SET = new String[]{"sprite20", "sprite21", "sprite22"};
     public static final String CHARACTERS_ATLAS_BLOCK_PATH = "./player/block/block.txt";
+
     /*public static final String PLAYER_DODGING_REGION_NAME = ;
+
     public static final String PLAYER_JUMPING_REGION_NAME = ;
     public static final String PLAYER_HIT_REGION_NAME = ; [""];*/
 }
