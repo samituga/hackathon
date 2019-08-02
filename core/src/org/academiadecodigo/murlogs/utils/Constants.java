@@ -2,6 +2,7 @@ package org.academiadecodigo.murlogs.utils;
 
 import com.badlogic.gdx.math.Vector2;
 
+
 public class Constants {
 
 
@@ -46,12 +47,18 @@ public class Constants {
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 480;
     public static final float WORLD_TO_SCREEN = 32;
-    public static final String CHARACTERS_ATLAS_PATH = "./player/doe_walking_right/doe_walking_right.txt";
+    public static final String CHARACTERS_ATLAS_PATH = "./player/doe_walking_right/doe_jump.txt";
     public static final String[] PLAYER_RUNNING_REGION_NAMES = new String[]{"0", "1", "2", "3", "4", "5", "6", "7"};
     public static final float ENEMY_X = 18f;
     public static final float ENEMY_Y = GROUND_Y + GROUND_HEIGHT;
     public static final float ENEMY_DODGE_X = 2f;
     public static final float ENEMY_DODGE_Y = 1.5f;
+    public static final String JUMP_ATLAS = "./doe_jump/doe_jump.txt";
+    public static final String[] PLAYER_JUMPING_IMAGE_SET = new String[]{"00", "01", "02","03","04","05","06","07","08","09"};
+    public static final String PUNCH_ATLAS = "./doe_punch/doe_punch.txt";
+    public static final String[] PLAYER_PUNCHING_IMAGE_SET = new String[]{"sprite_0", "sprite_1", "sprite_2", "sprite_3"};
+
+
     /*public static final String PLAYER_DODGING_REGION_NAME = ;
     public static final String PLAYER_JUMPING_REGION_NAME = ;
     public static final String PLAYER_HIT_REGION_NAME = ; [""];*/

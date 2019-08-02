@@ -1,3 +1,5 @@
+
+
 package org.academiadecodigo.murlogs.stages;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -131,7 +133,11 @@ public class GameStage extends Stage implements ContactListener {
             player.landed();
 
         }
-
+        if ((BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsPlayer(b)) ||
+                BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsEnemy(b)) {
+            System.out.println("enemy is close");
+            enemy.isClose();
+        }
     }
 
     @Override
@@ -153,3 +159,4 @@ public class GameStage extends Stage implements ContactListener {
         return enemy;
     }
 }
+

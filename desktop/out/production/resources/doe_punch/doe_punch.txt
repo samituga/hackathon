@@ -1,0 +1,33 @@
+doe_punch.png
+size: 112, 576
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sprite
+  rotate: false
+  xy: 0, 0
+  size: 112, 144
+  orig: 112, 144
+  offset: 0, 0
+  index: 0
+sprite
+  rotate: false
+  xy: 0, 144
+  size: 112, 144
+  orig: 112, 144
+  offset: 0, 0
+  index: 1
+sprite
+  rotate: false
+  xy: 0, 288
+  size: 112, 144
+  orig: 112, 144
+  offset: 0, 0
+  index: 2
+sprite
+  rotate: false
+  xy: 0, 432
+  size: 112, 144
+  orig: 112, 144
+  offset: 0, 0
+  index: 3
