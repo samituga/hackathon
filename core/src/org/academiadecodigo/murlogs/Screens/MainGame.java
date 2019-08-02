@@ -69,17 +69,20 @@ public class MainGame implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player.dodge();
             player.setDodging(true);
+            player.setBlocking(false);
         }
         if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.isDodging()) {
             player.stopDodge();
             player.setDodging(false);
+            player.setBlocking(false);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.setDodging(false);
             player.setBlocking(true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && !player.isDodging()) {
             player.punch();
         }
 
