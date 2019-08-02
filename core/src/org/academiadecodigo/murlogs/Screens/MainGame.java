@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import org.academiadecodigo.murlogs.App;
+import org.academiadecodigo.murlogs.characters.Enemy;
 import org.academiadecodigo.murlogs.characters.Player;
 import org.academiadecodigo.murlogs.stages.GameStage;
 import org.academiadecodigo.murlogs.utils.Constants;
@@ -51,6 +52,8 @@ public class MainGame implements Screen {
 
         stage.draw();
         stage.act(delta);
+
+        stage.getEnemy().enemyMove();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             player.jump();
@@ -96,5 +99,4 @@ public class MainGame implements Screen {
         app.dispose();
 
     }
-
 }

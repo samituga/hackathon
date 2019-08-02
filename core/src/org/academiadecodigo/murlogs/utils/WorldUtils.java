@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import org.academiadecodigo.murlogs.box2d.EnemyUserData;
 import org.academiadecodigo.murlogs.box2d.GroundUserData;
 import org.academiadecodigo.murlogs.box2d.PlayerUserData;
 import org.academiadecodigo.murlogs.box2d.SideLimitUserData;
@@ -66,5 +67,18 @@ public class WorldUtils {
         return body;
     }
 
-
+    public static Body createEnemy(World world) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(new Vector2(Constants.ENEMY_X, Constants.ENEMY_Y));
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(Constants.PLAYER_WIDTH / 2, Constants.PLAYER_HEIGHT / 2);
+        Body body = world.createBody(bodyDef);
+        body.setGravityScale(Constants.PLAYER_GRAVITY_SCALE);
+        body.createFixture(shape, Constants.PLAYER_DENSITY);
+        body.resetMassData();
+        body.setUserData(new EnemyUserData());
+        shape.dispose();
+        return body;
+    }
 }
