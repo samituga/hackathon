@@ -18,7 +18,6 @@ public class MainGame implements Screen {
     private GameStage stage;
     private App app;
     private Player player;
-    private Enemy enemy;
     private boolean crouch;
     private final Texture background = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
     private Texture img;

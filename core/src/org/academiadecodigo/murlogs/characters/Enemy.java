@@ -29,13 +29,18 @@ public class Enemy extends Corpse {
         return (EnemyUserData) userData;
     }
 
+
     public void enemyMove() {
+
         Directions directions = Directions.LEFT;
+
         double random = Math.random();
+
         iterators++;
 
-        if (iterators >= 30) {
-            directions = random > 0.20f ? Directions.LEFT : Directions.RIGHT;
+        if (iterators >= 10) {
+            directions = random > 0.50f ? Directions.LEFT : Directions.RIGHT;
+            iterators = 0;
         }
 
         //body.applyLinearImpulse(Constants.PLAYER_LEFT, Constants.PLAYER_LEFT, true);
