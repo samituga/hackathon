@@ -7,10 +7,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.physics.box2d.World;
 import org.academiadecodigo.murlogs.App;
 import org.academiadecodigo.murlogs.characters.Player;
 import org.academiadecodigo.murlogs.stages.GameStage;
 import org.academiadecodigo.murlogs.utils.Constants;
+import org.academiadecodigo.murlogs.utils.WorldUtils;
 
 public class MainGame implements Screen {
 
@@ -19,10 +21,13 @@ public class MainGame implements Screen {
     private Player player;
     private boolean crouch;
     private final Texture background = new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH));
+    private World gameStageWorld;
 
     private OrthographicCamera camera;
     public MainGame(App app) {
-        stage = new GameStage();
+        gameStageWorld = WorldUtils.createWorld();
+
+        stage = new GameStage(gameStageWorld);
         this.app = app;
         player =stage.getPlayer();
         camera = new OrthographicCamera();
@@ -63,6 +68,9 @@ public class MainGame implements Screen {
         if(!Gdx.input.isKeyPressed(Input.Keys.DOWN) && crouch){
             player.stopDodge();
             crouch = false;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.X)){
+            WorldUtils.createPunch(gameStageWorld,player.playerPosition() );
         }
     }
 

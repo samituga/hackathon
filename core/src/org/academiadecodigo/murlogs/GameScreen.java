@@ -6,13 +6,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen implements Screen {
     final App game;
 
     //images
-    Texture background;
-
+    //Texture background;
 
     //sound & Music
 
@@ -25,7 +26,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // load the images
-        background = new Texture(Gdx.files.internal("fixbg.png"));
+        //background = new Texture(Gdx.files.internal("fixbg.png"));
 
 
         // load sound
@@ -37,7 +38,6 @@ public class GameScreen implements Screen {
 
 
         // create player
-
 
 
     }
@@ -54,6 +54,7 @@ public class GameScreen implements Screen {
         // arguments to glClearColor are the red, green
         // blue and alpha component in the range [0,1]
         // of the color to be used to clear the screen.
+
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -67,7 +68,8 @@ public class GameScreen implements Screen {
 
         // begin a new batch and draw the player and others
         game.batch.begin();
-        game.batch.draw(background, 0, 0);
+        //game.batch.draw(background, 0, 0);
+
         game.batch.end();
 /*
         // process user input

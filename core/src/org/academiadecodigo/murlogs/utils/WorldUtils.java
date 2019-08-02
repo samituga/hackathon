@@ -7,9 +7,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import org.academiadecodigo.murlogs.box2d.GroundUserData;
 import org.academiadecodigo.murlogs.box2d.PlayerUserData;
+import org.academiadecodigo.murlogs.box2d.PunchUserData;
 import org.academiadecodigo.murlogs.box2d.SideLimitUserData;
+import org.academiadecodigo.murlogs.characters.Player;
 
 public class WorldUtils {
+
+
+    private  Player player;
 
     public static World createWorld(){
         return new World(Constants.WORLD_GRAVITY, true);
@@ -66,5 +71,21 @@ public class WorldUtils {
         return body;
     }
 
+    public static Body createPunch(World world, Vector2 vector2){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(new Vector2(vector2));
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(Constants.PUNCH_WIDTH / 2, Constants.PUNCH_WIDTH / 2);
+        Body body = world.createBody(bodyDef);
+        body.createFixture(shape, Constants.PUNCH_DENSITY);
+        body.resetMassData();
+        body.setUserData(new PunchUserData());
+        shape.dispose();
+        return body;
+    }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }

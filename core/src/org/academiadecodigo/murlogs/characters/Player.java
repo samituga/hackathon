@@ -31,6 +31,7 @@ public class Player extends Corpse {
             jumping = true;
         }
 
+
     }
     public void moveLeft(){
        body.applyLinearImpulse(Constants.PLAYER_LEFT,Constants.PLAYER_LEFT, true);
@@ -55,12 +56,14 @@ public class Player extends Corpse {
         body.setTransform(body.getPosition(), 0f);
     }
 
+
+
     public boolean isDodging() {
         return dodging;
     }
 
-    public Player getPlayer() {
-        return this;
+    public Vector2 playerPosition(){
+        return body.getLocalCenter();
     }
 
 }
