@@ -46,7 +46,7 @@ public class GameStage extends Stage implements ContactListener {
 
     public GameStage() {
         setupWorld();
-        renderer = new Box2DDebugRenderer();
+        renderer = new Box2DDebugRenderer(true, true, false, true, false, true);
         setupCamera();
     }
 
@@ -135,7 +135,6 @@ public class GameStage extends Stage implements ContactListener {
         }
         if ((BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsPlayer(b)) ||
                 BodyUtils.bodyIsPlayer(a) && BodyUtils.bodyIsEnemy(b)) {
-            System.out.println("enemy is close");
             player.setClose(true);
             enemy.setClose(true);
             return;

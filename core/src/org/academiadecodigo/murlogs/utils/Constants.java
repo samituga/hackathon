@@ -49,7 +49,7 @@ public class Constants {
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 480;
     public static final float WORLD_TO_SCREEN = 32;
-    public static final String CHARACTERS_ATLAS_PATH = "./player/doe.txt";
+    public static final String CHARACTERS_ATLAS_PATH = "player/doe.txt";
     public static final String[] PLAYER_RUNNING_REGION_NAMES = new String[]{"0", "1", "2", "3", "4", "5", "6", "7"};
     public static final float ENEMY_X = 18f;
     public static final float ENEMY_Y = GROUND_Y + GROUND_HEIGHT;
@@ -64,8 +64,9 @@ public class Constants {
     public static final String[] PLAYER_CROUCHING_IMAGE_SET = new String[]{"crouching0", "crouching1", "crouching2"};
     public static final String[] PLAYER_BLOCKING_IMAGE_SET = new String[]{"sprite20", "sprite21", "sprite22"};
     public static final String CHARACTERS_ATLAS_BLOCK_PATH = "./player/block/block.txt";
-    public static final String ENEMY_ATLAS_PATH = "./enemy/enemy.txt";
+    public static final String ENEMY_ATLAS_PATH = "enemy/enemy.txt";
     public static final String[] ENEMY_RUNNING_REGION_NAMES = new String[]{"walking0", "walking1","walking2","walking3","walking4","walking5","walking6","walking7",};
+    public static final String[] ENEMY_HITTING_REGION_NAMES = new String[]{"hitting0","hitting1","hitting2", "hitting3", "hitting4", "hitting5", "hitting6", "hitting7", "hitting8"};
 
     /*public static final String PLAYER_DODGING_REGION_NAME = ;
 

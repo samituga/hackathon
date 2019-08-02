@@ -22,6 +22,7 @@ public class MainGame implements Screen {
     private Texture enemyDeath;
     private Texture playerdeath;
     private Screen mainMenuScreen;
+    private int attackIterator;
 
 
     private OrthographicCamera camera;
@@ -51,6 +52,8 @@ public class MainGame implements Screen {
         app.batch.begin();
         app.batch.draw(img, 0, 0);
         stage.getEnemy().enemyMove();
+        app.font.draw(app.batch, "HP: " + player.getHp(), 160f, 550f);
+        app.font.draw(app.batch, "HP: " + enemy.getHp(), 850f, 550f);
         app.batch.end();
 
         stage.draw();
@@ -58,43 +61,51 @@ public class MainGame implements Screen {
 
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             player.jump();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             player.moveLeft();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.moveRight();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             player.dodge();
             player.setDodging(true);
+            player.setBlocking(false);
         }
-        if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.isDodging()) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.S) && player.isDodging()) {
             player.stopDodge();
             player.setDodging(false);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            player.setBlocking(true);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
-            player.punch();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.X) && !player.isBlocking() && enemy.isClose()) {
-            enemy.hitten();
-            player.punch();
+            player.setBlocking(false);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+            player.setDodging(false);
             player.setBlocking(true);
         }
+
         if (!Gdx.input.isKeyPressed(Input.Keys.K)) {
             player.setBlocking(false);
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.J) && !player.isBlocking() && !player.isDodging()) {
+            player.punch();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.J) && !player.isBlocking() && enemy.isClose()) {
+            enemy.hitten();
+            player.punch();
+            attackIterator ++;
+            if (attackIterator >= 10) {
+                enemy.hitten();
+                player.punch();
+                attackIterator = 0;
+            }
+        }
+
+
 
         if (enemy.isAttack() && !player.isBlocking() && enemy.isClose()) {
             player.hitten();

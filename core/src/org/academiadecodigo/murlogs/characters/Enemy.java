@@ -18,26 +18,34 @@ public class Enemy extends Corpse {
     private int iterators;
     private boolean initialMove = true;
     private int hp = 100;
-    private boolean isDead = false;
     private boolean attack;
     private boolean block;
     private Animation runningAnimation;
     private int stateTime;
+    private Animation hittingAnimation;
+    private int attIt;
 
 
     public Enemy(Body body) {
         super(body);
+
 
         TextureAtlas textureEnemyAtlas = new TextureAtlas(Constants.ENEMY_ATLAS_PATH);
         TextureRegion[] enemyRunningFrames = new TextureRegion[Constants.ENEMY_RUNNING_REGION_NAMES.length];
         for (int i = 0; i < Constants.ENEMY_RUNNING_REGION_NAMES.length; i++) {
             String path = Constants.ENEMY_RUNNING_REGION_NAMES[i];
             enemyRunningFrames[i] = textureEnemyAtlas.findRegion(path);
-            System.out.println(path);
-            System.out.println(enemyRunningFrames[i]);
+
         }
 
-        runningAnimation = new Animation(0.2f, runningAnimation);
+        TextureRegion[] enemyHittingFrames = new TextureRegion[Constants.ENEMY_HITTING_REGION_NAMES.length];
+        for (int i = 0; i < Constants.ENEMY_HITTING_REGION_NAMES.length; i++) {
+            String path = Constants.ENEMY_HITTING_REGION_NAMES[i];
+            enemyHittingFrames[i] = textureEnemyAtlas.findRegion(path);
+
+        }
+        hittingAnimation = new Animation(0.2f, enemyHittingFrames);
+        runningAnimation = new Animation(0.2f, enemyRunningFrames);
         stateTime += Gdx.graphics.getDeltaTime();
 
 
@@ -47,14 +55,17 @@ public class Enemy extends Corpse {
     public void draw(Batch batch, float parentAlpha) {
 
         stateTime += Gdx.graphics.getDeltaTime();
-
-        if(directions!= null){
-            System.out.println(runningAnimation);
-
-            batch.draw((TextureRegion)runningAnimation.getKeyFrame(stateTime,true),0,0, 256, 128);
+        int width = (int) (128 / 1.1);
+        int height = (int) (256 / 1.2);
+        if (directions != null) {
+            batch.draw((TextureRegion) runningAnimation.getKeyFrame(stateTime, true), (getX() * 50 - 1f), getY() * 12, width, height);
             return;
         }
 
+        if (attack == true) {
+            batch.draw((TextureRegion) hittingAnimation.getKeyFrame(stateTime, true), (getX() * 50 - 1f), getY() * 12, width, height);
+            return;
+        }
 
 
     }
@@ -86,7 +97,7 @@ public class Enemy extends Corpse {
 
 
         if (iterators >= 30) {
-            directions = random > 0.4f ? Directions.LEFT : Directions.RIGHT;
+            directions = random > 0.3f ? Directions.LEFT : Directions.RIGHT;
             iterators = 0;
         }
 
@@ -123,8 +134,11 @@ public class Enemy extends Corpse {
     }
 
     public void hitten() {
-        System.out.println(hp + " hp");// TODO: 02/08/2019  10
-        hp -= 10;
+        attIt++;
+        if (attIt >= 3) {
+            hp -= 2;
+            attIt = 0;
+        }
     }
 
     public void setClose(boolean b) {
@@ -141,5 +155,17 @@ public class Enemy extends Corpse {
 
     public boolean isBlock() {
         return block;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public float getX() {
+        return body.getPosition().x;
+    }
+
+    public float getY() {
+        return body.getPosition().y;
     }
 }

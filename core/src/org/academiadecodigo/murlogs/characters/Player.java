@@ -96,30 +96,29 @@ public class Player extends Corpse {
         if (dodging) {
             int width = (int) (128 / 1.4);
             int height = (int) (256 / 1.4);
-            batch.draw((TextureRegion) crouchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, width, height);
+            batch.draw((TextureRegion) crouchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 12, width, height);
             return;
         }
 
         if (isBlocking) {
-            batch.draw((TextureRegion) blockingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
+            batch.draw((TextureRegion) blockingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 12, 128, 256);
             return;
         }
 
 
         if (jumping) {
-            batch.draw((TextureRegion) jumpingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
+            batch.draw((TextureRegion) jumpingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 12, 128, 256);
             return;
         }
-        System.out.println(punch);
 
         if (punch) {
-            batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
+            batch.draw((TextureRegion) punchingAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 12, 128, 256);
             punch = false;
             return;
 
         }
 
-        batch.draw((TextureRegion) runningAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 15, 128, 256);
+        batch.draw((TextureRegion) runningAnimation.getKeyFrame(stateTime, true), (getX() - 1f) * 50, getY() * 12, 128, 256);
 
     }
 
@@ -212,7 +211,7 @@ public class Player extends Corpse {
     }
 
     public void hitten() {
-        hp -=10;  // TODO: 02/08/2019  10
+        hp -=5;  // TODO: 02/08/2019  10
     }
 
     public boolean isDead() {
@@ -221,5 +220,9 @@ public class Player extends Corpse {
 
     public void setMainGame(MainGame mainGame) {
         this.mainGame = mainGame;
+    }
+
+    public int getHp() {
+        return hp;
     }
 }
